@@ -172,7 +172,7 @@ func GatherHelmRemoteDeploymentsInfo() []models.HelmRemoteDeployment {
 	var deployments = []models.HelmRemoteDeployment{}
 	var hasHelmRemoteCharts bool
 	exitOnInterrupt(survey.AskOne(&survey.Confirm{
-		Message: "Would you like to configure helm charts installed locally?",
+		Message: "Would you like to configure remote helm charts?",
 	}, &hasHelmRemoteCharts, survey.WithValidator(survey.Required)))
 
 	if hasHelmRemoteCharts {
