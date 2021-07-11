@@ -1,0 +1,21 @@
+load('ext://min_tilt_version', 'min_tilt_version')
+load('ext://helm_remote', 'helm_remote')
+
+min_tilt_version('0.12.0')
+
+// install the calico plugin
+k8s_yaml('https://docs.projectcalico.org/v3.8/manifests/calico.yaml')
+
+{{range .HelmRemoteDeployments}}
+helm_remote('{{.Name}}',
+            repo_name='{{.RepoName}}',
+            # The release name, equivalent to helm --name
+            release_name='{{.ReleaseName}}',
+            repo_url='{{.RepoURL}}',
+            # The namespace to install in, equivalent to helm --namespace
+            namespace='{{.Namespace}}',
+            version='{{.Version}}',
+            create_namespace='{{.CreateNamespace}}',
+            allow_duplicates=True,
+            set=[{{range $index, $element := .Set}}{{if $index}},{{end}}'{{.}}'{{end}}])
+{{end}}
