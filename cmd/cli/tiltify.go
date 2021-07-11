@@ -3,7 +3,6 @@ package cli
 import (
 	"fmt"
 	"log"
-	"os/exec"
 	"path/filepath"
 
 	"github.com/arriqaaq/tiltify/pkg/models"
@@ -38,18 +37,18 @@ func NewTiltify(logger *logrus.Logger, fs stuffbin.FileSystem, buildVersion stri
 }
 
 func (t *Tiltify) ensureInstalled() error {
-	_, err := exec.LookPath("kind")
-	if err != nil {
-		return fmt.Errorf("kind not installed. Please install kind with these instructions: https://kind.sigs.k8s.io/")
-	}
-	_, err = exec.LookPath("tilt")
-	if err != nil {
-		return fmt.Errorf("tilt is not installed. Please install tilt with these instructions: https://docs.tilt.dev/install.html")
-	}
-	_, err = exec.LookPath("ctlptl")
-	if err != nil {
-		return fmt.Errorf("ctlptl is not installed. Please install ctlptl with these instructions: https://github.com/tilt-dev/ctlptl")
-	}
+	// _, err := exec.LookPath("kind")
+	// if err != nil {
+	// 	return fmt.Errorf("kind not installed. Please install kind with these instructions: https://kind.sigs.k8s.io/")
+	// }
+	// _, err = exec.LookPath("tilt")
+	// if err != nil {
+	// 	return fmt.Errorf("tilt is not installed. Please install tilt with these instructions: https://docs.tilt.dev/install.html")
+	// }
+	// _, err = exec.LookPath("ctlptl")
+	// if err != nil {
+	// 	return fmt.Errorf("ctlptl is not installed. Please install ctlptl with these instructions: https://github.com/tilt-dev/ctlptl")
+	// }
 	return nil
 }
 

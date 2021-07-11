@@ -1,6 +1,6 @@
 # tiltify
 
-🍪✂️ Deploy your Kubernetes cluster easily with tilt.
+Deploy your Kubernetes cluster easily with tilt.
 
 `tiltify` lets you quickly scaffold a Tilt configurationfile for Kubernetes resource manifests. 
 
@@ -11,6 +11,7 @@
 `tiltify` is a simple tool to create an easy k8s development environment using tilt. You can easily setup a test cluster based on configurations that match your production workloads. This would make it easy for developers to easily setup a production like cluster locally.
 
 ## Installation
+
 
 ### Grab the latest binary
 
