@@ -93,18 +93,36 @@ func (t *Tiltify) init(cliCtx *cli.Context) error {
 
 	var workload = models.NewWorkload()
 
+	// Create default helm deployments
 	defaultClusterDeployments := questions.GatherDefaultClusterDeploymentInfo()
-	// Create helm deployments
 	if len(defaultClusterDeployments) == 0 {
 		return fmt.Errorf(fmt.Sprintf("No helm deployments specified in configuration."))
 	}
-
 	workload.HelmRemoteDeployments = append(workload.HelmRemoteDeployments, defaultClusterDeployments...)
 
-	// resources := []models.Resource{}
-	// for _, dep := range defaultClusterDeployments {
-	// 	resources = append(resources, models.Resource(dep))
-	// }
+	// Check local yaml deployments
+	localDeployments := questions.GatherDeploymentsInfo()
+	if len(localDeployments) != 0 {
+		workload.Deployments = append(workload.Deployments, localDeployments...)
+	}
+
+	// Check local kustomize deployments
+	kustomizeDeployments := questions.GatherKustomizeDeploymentsInfo()
+	if len(kustomizeDeployments) != 0 {
+		workload.KustomizeDeployments = append(workload.KustomizeDeployments, kustomizeDeployments...)
+	}
+
+	// Check local helm chart deployments
+	helmLocalDeployments := questions.GatherHelmLocalDeploymentsInfo()
+	if len(helmLocalDeployments) != 0 {
+		workload.HelmLocalDeployments = append(workload.HelmLocalDeployments, helmLocalDeployments...)
+	}
+
+	// Check remote helm chart deployments
+	helmRemoteDeployments := questions.GatherHelmRemoteDeploymentsInfo()
+	if len(helmRemoteDeployments) != 0 {
+		workload.HelmRemoteDeployments = append(workload.HelmRemoteDeployments, helmRemoteDeployments...)
+	}
 
 	err := createResource(models.Resource(workload), projectDir, models.Helm, t.Fs, configFile)
 	if err != nil {

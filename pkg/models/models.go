@@ -22,8 +22,8 @@ type HelmRemoteDeployment struct {
 
 // Deployment represents configuration options for the helm deployment spec.
 type Deployment struct {
-	Name  string   `json:"name" yaml:"name"`
-	Files []string `json:"files" yaml:"files"`
+	Name string `json:"name" yaml:"name"`
+	File string `json:"file" yaml:"file"`
 }
 
 // KustomizeDeployment represents configuration options for the helm Kustomizedeployment spec.

@@ -6,6 +6,7 @@ min_tilt_version('0.12.0')
 // install the calico plugin
 k8s_yaml('https://docs.projectcalico.org/v3.8/manifests/calico.yaml')
 
+// install helm remote charts
 {{range .HelmRemoteDeployments}}
 helm_remote('{{.Name}}',
             repo_name='{{.RepoName}}',
@@ -18,4 +19,20 @@ helm_remote('{{.Name}}',
             create_namespace='{{.CreateNamespace}}',
             allow_duplicates=True,
             set=[{{range $index, $element := .Set}}{{if $index}},{{end}}'{{.}}'{{end}}])
+{{end}}
+
+// install helm local charts
+{{range .HelmLocalDeployments}}
+k8s_yaml(helm('{{.Dir}}'))
+{{end}}
+
+
+// install kustomize deployments
+{{range .KustomizeDeployments}}
+k8s_yaml(kustomize('{{.Dir}}'))
+{{end}}
+
+// install local K8s Yaml configurations
+{{range .Deployments}}
+k8s_yaml('{{.Dir}}')
 {{end}}

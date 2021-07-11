@@ -18,14 +18,6 @@ build:
 	go build -o ${BIN} -ldflags="-X 'main.buildVersion=${VERSION}' -X 'main.buildDate=${BUILD_DATE}'" $(PROJECT_DIR)/cmd/main.go
 	stuffbin -a stuff -in ${BIN} -out ${BIN} ${STATIC}
 
-test-local: fresh
-	./${BIN} -c config.yml s
-
-validate-local: fresh
-	./${BIN} -c config.yml s | kubeval --strict
-
-run:
-	./${BIN}
 
 fresh: clean build
 
