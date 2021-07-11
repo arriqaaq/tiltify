@@ -3,9 +3,6 @@ load('ext://helm_remote', 'helm_remote')
 
 min_tilt_version('0.12.0')
 
-// install the calico plugin
-k8s_yaml('https://docs.projectcalico.org/v3.8/manifests/calico.yaml')
-
 // install helm remote charts
 {{range .HelmRemoteDeployments}}
 helm_remote('{{.Name}}',

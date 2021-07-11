@@ -69,12 +69,12 @@ func main() {
 		logger.Errorf("error reading stuffed binary: %v", err)
 		os.Exit(1)
 	}
-	// Initialize hub.
+
 	tc := tiltcli.NewTiltify(logger, fs, buildVersion)
 
 	// Register commands.
 	app.Commands = []cli.Command{
-		tc.InitProject(),
+		tc.Init(),
 	}
 	// Run the app.
 	tc.Logger.Info("Starting tiltify...")
